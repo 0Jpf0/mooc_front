@@ -22,7 +22,8 @@
             <input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off"
                    class="layui-input">
           </div>
-          <div class="layui-form-mid layui-word-aux" v-html="svg">辅助文字</div>
+          <div class="layui-form-mid layui-word-aux svg" v-html="svg"
+          @click="getCaptcha">辅助文字</div>
         </div>
         <button type="button" class="layui-btn">确认登录</button>
         <a href="http://www.layui.com" class="mooc-link">忘记密码</a>
@@ -39,13 +40,18 @@ export default {
     }
   },
   mounted () {
-    axios.get('http://localhost:3003/getCaptcha').then((res) => {
-      if (res.status === 200) {
-        if (res.data.code === 200) {
-          this.svg = res.data.data
+    this.getCaptcha()
+  },
+  methods: {
+    getCaptcha () {
+      axios.get('http://localhost:3003/getCaptcha').then((res) => {
+        if (res.status === 200) {
+          if (res.data.code === 200) {
+            this.svg = res.data.data
+          }
         }
-      }
-    })
+      })
+    }
   }
 }
 </script>
@@ -65,5 +71,9 @@ export default {
   }
   input{
     width: 190px;
+  }
+  .svg{
+    position:relative;
+    margin-top:-15px;
   }
 </style>
