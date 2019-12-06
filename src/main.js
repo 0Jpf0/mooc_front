@@ -2,13 +2,13 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import VeeValidate, { Validator } from 'vee-validate'
+import { ValidationProvider, localize } from 'vee-validate'
+
+import './rules/index'
 import './local/index'
 
-Vue.use(VeeValidate)
-
-const validator = new Validator()
-validator.localize('zh-CN')
+Vue.component('ValidationProvider', ValidationProvider)
+localize('zh-CN')
 
 Vue.config.productionTip = false
 
