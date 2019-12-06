@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     getCaptcha () {
-      axios.get('http://localhost:3003/getCaptcha').then((res) => {
+      axios.get('http://localhost:3000/getCaptcha').then((res) => {
         if (res.status === 200) {
           if (res.data.code === 200) {
             this.svg = res.data.data
