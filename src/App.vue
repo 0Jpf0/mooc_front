@@ -26,7 +26,7 @@
           <div class="layui-form-item">
             <label class="layui-form-label">验证码</label>
             <div class="layui-input-inline">
-              <input type="text" v-model="code" v-validate="'required|length:4'" placeholder="请输入验证码" autocomplete="off"
+              <input type="text" v-model="code" placeholder="请输入验证码" autocomplete="off"
                      class="layui-input">
             </div>
             <div class="error layui-form-mid">{{errors[0]}}</div>
