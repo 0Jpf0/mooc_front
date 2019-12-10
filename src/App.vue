@@ -1,94 +1,22 @@
 <template>
   <div id="app">
-    <div class="layui-container">
-      <form class="layui-form layui-form-pane" action="">
-        <ValidationProvider name="name" rules="required|email" v-slot="{ errors }">
-          <div class="layui-form-item">
-            <label class="layui-form-label">手机/邮箱</label>
-            <div class="layui-input-inline">
-              <input type="text" v-model="name" placeholder="请输入用户名" autocomplete="off"
-                     class="layui-input">
-            </div>
-            <div class="error layui-form-mid">{{ errors[0] }}</div>
-          </div>
-        </ValidationProvider>
-        <ValidationProvider name="password" rules="required|min:6" v-slot="{ errors }">
-          <div class="layui-form-item">
-            <label class="layui-form-label">密码</label>
-            <div class="layui-input-inline">
-              <input type="password" v-model="password"  placeholder="请输入密码" autocomplete="off"
-                     class="layui-input">
-            </div>
-            <div class="error layui-form-mid">{{errors[0]}}</div>
-          </div>
-        </ValidationProvider>
-        <ValidationProvider name="code" rules="required||length:4" v-slot="{ errors }">
-          <div class="layui-form-item">
-            <label class="layui-form-label">验证码</label>
-            <div class="layui-input-inline">
-              <input type="text" v-model="code" placeholder="请输入验证码" autocomplete="off"
-                     class="layui-input">
-            </div>
-            <div class="error layui-form-mid">{{errors[0]}}</div>
-            <div class="layui-form-mid layui-word-aux svg" v-html="svg"
-            @click="getCaptcha">辅助文字</div>
-          </div>
-        </ValidationProvider>
-        <button type="button" class="layui-btn">确认登录</button>
-        <a href="http://www.layui.com" class="mooc-link">忘记密码</a>
-      </form>
-    </div>
+    <mooc-header></mooc-header>
+    <router-view/>
+    <mooc-footer></mooc-footer>
   </div>
 </template>
 <script>
-import axios from 'axios'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 export default {
-  data () {
-    return {
-      svg: '',
-      name: '',
-      password: '',
-      code: ''
-    }
-  },
-  mounted () {
-    this.getCaptcha()
-  },
-  methods: {
-    getCaptcha () {
-      axios.get('http://localhost:3000/getCaptcha').then((res) => {
-        if (res.status === 200) {
-          if (res.data.code === 200) {
-            this.svg = res.data.data
-          }
-        }
-      })
-    }
+  components: {
+    'mooc-header': Header,
+    'mooc-footer': Footer
   }
 }
 </script>
-<style lang="scss" scoped>
-  $color-green:#009688;
-  #app {
-    background: #f2f2f2;
-    .layui-container{
-      background-color:#fff;
-      .mooc-link{
-        margin-left:10px;
-        &:hover{
-          color:$color-green;
-        }
-      }
-    }
-  }
-  input{
-    width: 190px;
-  }
-  .svg{
-    position:relative;
-    margin-top:-15px;
-  }
-  .error{
-    color:red;
-  }
+<style lang="scss">
+ @import 'assets/layui/css/layui.css';
+ @import "assets/css/global.css";
+ @import 'assets/layui/css/modules/layer/default/layer.css';
 </style>

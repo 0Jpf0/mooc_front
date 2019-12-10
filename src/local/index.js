@@ -1,4 +1,4 @@
-import { localize } from 'vee-validate'
+import { localize, extend } from 'vee-validate'
 
 const dictionary = {
   'zh-CN': {
@@ -11,10 +11,21 @@ const dictionary = {
     fields: {
       password: {
         required: '请输入密码',
-        min: '不符合最小长度要求'
+        min: '不符合最小长度要求',
+        max: '不符合最大长度要求'
+      },
+      rePassword: {
+        required: '请输入密码',
+        min: '不符合最小长度要求',
+        max: '不符合最大长度要求'
+        // confirmPassword: '两次密码输入不一致'
       },
       name: {
-        required: '请输入账号',
+        required: '请输入昵称',
+        min: '不符合最小长度要求'
+      },
+      username: {
+        required: '请输入用户名',
         email: '请输入正确的邮箱格式'
       },
       code: {
@@ -24,5 +35,11 @@ const dictionary = {
     }
   }
 }
-
+extend('confirmPassword', { params: ['target'],
+  validate (value, { target }) {
+    console.log(value, target)
+    return value === target
+  },
+  message: '两次密码输入不一致'
+})
 localize(dictionary)

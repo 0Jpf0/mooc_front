@@ -27,3 +27,7 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+3-15作业:
+  - 注册表单验证
+  - 忘记密码表单验证
