@@ -17,8 +17,8 @@ const dictionary = {
       rePassword: {
         required: '请输入密码',
         min: '不符合最小长度要求',
-        max: '不符合最大长度要求'
-        // confirmPassword: '两次密码输入不一致'
+        max: '不符合最大长度要求',
+        confirmPassword: '两次密码输入不一致'
       },
       name: {
         required: '请输入昵称',

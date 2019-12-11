@@ -66,14 +66,19 @@
                   </div>
                 </validation-observer>
                 <div class="layui-form-item">
-                  <label for="L_vercode" class="layui-form-label">验证码</label>
-                  <div class="layui-input-inline">
-                    <input type="text" id="L_vercode" name="vercode" placeholder="请输入验证码" autocomplete="off"
-                           class="layui-input">
-                  </div>
-                  <div class="layui-form-mid">
-                    <span style="color: #c00;">hello</span>
-                  </div>
+                  <validation-provider name="code" rules="required|length:4" v-slot="{errors}">
+                      <label class="layui-form-label">验证码</label>
+                      <div class="layui-input-inline">
+                        <input type="text" v-model="code" placeholder="请输入验证码" autocomplete="off"
+                               class="layui-input">
+                      </div>
+                      <div>
+                        <span style="color: #c00;" v-html="svg" @click="_getCode">hello</span>
+                      </div>
+                    <div class="layui-form-mid">
+                      <span style="color: #c00;">{{errors[0]}}</span>
+                    </div>
+                  </validation-provider>
                 </div>
                 <div class="layui-form-item">
                   <button class="layui-btn" lay-filter="*" lay-submit>立即注册</button>
@@ -104,9 +109,24 @@ export default {
       name: '',
       password: '',
       rePassword: '',
-      code: ''
+      code: '',
+      svg: ''
+    }
+  },
+  mounted () {
+    this._getCode()
+  },
+  methods: {
+    _getCode () {
+      this.$getCode().then((res) => {
+        console.log(res)
+        if (res.code === 200) {
+          this.svg = res.data
+        }
+      })
     }
   }
+
 }
 </script>
 

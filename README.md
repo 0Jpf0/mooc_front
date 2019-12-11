@@ -28,6 +28,9 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-3-15作业:
+项目介绍:
+  - 为练习VUE开发的登录、注册页面
+
+新增功能:
   - 注册表单验证
   - 忘记密码表单验证
