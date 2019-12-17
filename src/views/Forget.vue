@@ -76,7 +76,7 @@
                   </validation-provider>
                 </div>
                 <div class="layui-form-item">
-                  <button class="layui-btn" alert="1" lay-filter="*" lay-submit>提交</button>
+                  <button type="button" class="layui-btn" alert="1" lay-filter="*" @click="submit()">提交</button>
                 </div>
               </form>
             </div>
@@ -90,6 +90,7 @@
 </template>
 
 <script>
+import { forget } from '@/api/login'
 export default {
   name: 'Forget',
   data () {
@@ -108,6 +109,16 @@ export default {
         console.log(res)
         if (res.code === 200) {
           this.svg = res.data
+        }
+      })
+    },
+    submit () {
+      forget({
+        username: this.username,
+        code: this.code
+      }).then((res) => {
+        if (res.code === 200) {
+          alert(res.msg)
         }
       })
     }
