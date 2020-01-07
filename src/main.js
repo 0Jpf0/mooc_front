@@ -13,7 +13,7 @@ Vue.component('ValidationProvider', ValidationProvider)
 Vue.component('ValidationObserver', ValidationObserver)
 localize('zh-CN')
 
-axios.defaults.baseURL = process.env.NODE !== 'production' ? 'http://localhost:3000' : ''
+axios.defaults.baseURL = process.env.NODE_ENV !== 'production' ? 'http://localhost:3000' : ''
 Vue.prototype.$getCode = getCode
 Vue.config.productionTip = false
 
