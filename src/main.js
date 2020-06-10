@@ -5,10 +5,12 @@ import store from "./store";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 
 import "./utils/validate";
+import alert from "./components/modules/alert";
 // import "./utils/validate-i18n";
 
 Vue.component("ValidationProvider", ValidationProvider);
 Vue.component("ValidationObserver", ValidationObserver);
+Vue.use(alert);
 Vue.config.productionTip = false;
 
 new Vue({

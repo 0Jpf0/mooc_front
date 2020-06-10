@@ -23,7 +23,7 @@ const forget = option => {
  * @param {*} loginInfo 用户名。密码等参数
  */
 const login = loginInfo => {
-  return axios.post("/login", { ...loginInfo });
+  return axios.post("/login/login", { ...loginInfo });
 };
 
 export { getCode, forget, login };
