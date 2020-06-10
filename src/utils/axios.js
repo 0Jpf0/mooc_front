@@ -17,7 +17,6 @@ class httpRequest {
   interceptors(instance) {
     instance.interceptors.request.use(
       config => {
-        console.log(config);
         return config;
       },
       error => {
@@ -27,7 +26,6 @@ class httpRequest {
 
     instance.interceptors.response.use(
       res => {
-        console.log(res);
         if (res.status === 200) {
           return Promise.resolve(res.data);
         } else {

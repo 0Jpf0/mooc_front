@@ -3,8 +3,13 @@
     <div class="fly-panel fly-panel-user" pad20>
       <div class="layui-tab layui-tab-brief" lay-filter="user">
         <ul class="layui-tab-title">
-          <li><router-link :to="{name:'login'}">登入</router-link></li>
-          <li class="layui-this">找回密码<!--重置密码--></li>
+          <li>
+            <router-link :to="{name:'login'}">登入</router-link>
+          </li>
+          <li class="layui-this">
+            找回密码
+            <!--重置密码-->
+          </li>
         </ul>
         <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
           <div class="layui-tab-item layui-show">
@@ -53,7 +58,13 @@
                   <validation-provider name="username" rules="required|email" v-slot="{errors}">
                     <label class="layui-form-label">用户名</label>
                     <div class="layui-input-inline">
-                      <input type="text" v-model="username" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                      <input
+                        type="text"
+                        v-model="username"
+                        placeholder="请输入用户名"
+                        autocomplete="off"
+                        class="layui-input"
+                      />
                     </div>
                     <div class="layui-form-mid">
                       <span style="color: #c00;">{{errors[0]}}</span>
@@ -64,8 +75,13 @@
                   <validation-provider name="code" rules="required|length:4" v-slot="{errors}">
                     <label class="layui-form-label">验证码</label>
                     <div class="layui-input-inline">
-                      <input type="text" v-model="code" placeholder="请输入验证码" autocomplete="off"
-                             class="layui-input">
+                      <input
+                        type="text"
+                        v-model="code"
+                        placeholder="请输入验证码"
+                        autocomplete="off"
+                        class="layui-input"
+                      />
                     </div>
                     <div>
                       <span style="color: #c00;" v-html="svg" @click="_getCode">hello</span>
@@ -76,43 +92,56 @@
                   </validation-provider>
                 </div>
                 <div class="layui-form-item">
-                  <button type="button" class="layui-btn" alert="1" lay-filter="*" @click="submit()">提交</button>
+                  <button
+                    type="button"
+                    class="layui-btn"
+                    alert="1"
+                    lay-filter="*"
+                    @click="submit()"
+                  >提交</button>
                 </div>
               </form>
             </div>
-
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-import { forget } from '@/api/login'
+import { forget, getCode } from '@/api/login'
+import uuid from 'uuid/dist/v4'
 export default {
   name: 'Forget',
-  data () {
+  data() {
     return {
       username: '',
       code: '',
       svg: ''
     }
   },
-  mounted () {
+  mounted() {
+    let sid = "";
+    if (localStorage.getItem('sid')) {
+      sid = localStorage.getItem('sid')
+    } else {
+      sid = uuid();
+      localStorage.setItem('sid', sid)
+    }
+    this.$store.commit('setSid', sid)
     this._getCode()
   },
   methods: {
-    _getCode () {
-      this.$getCode().then((res) => {
-        console.log(res)
+    _getCode() {
+      let sid = this.$store.state.sid;
+      getCode(sid).then((res) => {
         if (res.code === 200) {
           this.svg = res.data
         }
       })
     },
-    submit () {
+    submit() {
       forget({
         username: this.username,
         code: this.code
@@ -127,5 +156,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

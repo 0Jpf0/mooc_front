@@ -21,7 +21,7 @@ const dictionary = {
   fields: {
     username: {
       required: "请输入用户名",
-      email: "请输入正确的邮箱格式!!!!!!!"
+      email: "请输入正确的邮箱格式"
     }
   }
 };
@@ -33,9 +33,15 @@ extend("length", length);
 extend("confirmPassword", {
   params: ["target"],
   validate(value, { target }) {
-    console.log(value, target);
     return value === target;
   },
   message: "两次密码输入不一致"
+});
+extend("checkNnumber", {
+  validate(value) {
+    let reg = /^[0-9]*$/;
+    return !reg.test(value);
+  },
+  message: "不能以纯数字为昵称"
 });
 localize("zh_CN", dictionary);

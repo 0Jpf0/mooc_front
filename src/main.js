@@ -5,7 +5,7 @@ import store from "./store";
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 
 import "./utils/validate";
-// import "./util/validate-i18n";
+// import "./utils/validate-i18n";
 
 Vue.component("ValidationProvider", ValidationProvider);
 Vue.component("ValidationObserver", ValidationObserver);
