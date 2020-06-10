@@ -48,7 +48,12 @@
                     </validation-provider>
                   </div>
                   <div class="layui-form-item">
-                    <validation-provider name="code" rules="required|length:4" v-slot="{errors}">
+                    <validation-provider
+                      name="code"
+                      ref="codefield"
+                      rules="required|length:4"
+                      v-slot="{errors}"
+                    >
                       <label class="layui-form-label">验证码</label>
                       <div class="layui-input-inline">
                         <input
@@ -118,7 +123,6 @@ export default {
     }
   },
   mounted() {
-    this.$confirm('提示提示')
     let sid = "";
     if (localStorage.getItem('sid')) {
       sid = localStorage.getItem('sid')
@@ -146,7 +150,17 @@ export default {
         sid: this.$store.state.sid
       }).then((res) => {
         if (res.code === 200) {
-          console.log('登录成功')
+          console.log('登录成功');
+          this.username = "";
+          this.password = "";
+          this.code = ""
+          requestAnimationFrame(() => {
+            this.$refs.observer.reset();
+          })
+        } else if (res.code === 401) {
+          this.$refs.codefield.setErrors([res.msg])
+        } else if (res.code === 500) {
+          this.$alert(res.msg)
         }
       })
     }
