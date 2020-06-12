@@ -78,7 +78,7 @@
                       lay-filter="*"
                       lay-submit
                       type="button"
-                      @click="validate().then(submit)"
+                      @click="validate().then((res)=>{submit(res)})"
                     >立即登录</button>
                     <span style="padding-left:20px;">
                       <router-link :to="{name:'forget'}">忘记密码？</router-link>
@@ -142,27 +142,29 @@ export default {
         }
       })
     },
-    submit() {
-      login({
-        username: this.username,
-        password: this.password,
-        code: this.code,
-        sid: this.$store.state.sid
-      }).then((res) => {
-        if (res.code === 200) {
-          console.log('登录成功');
-          this.username = "";
-          this.password = "";
-          this.code = ""
-          requestAnimationFrame(() => {
-            this.$refs.observer.reset();
-          })
-        } else if (res.code === 401) {
-          this.$refs.codefield.setErrors([res.msg])
-        } else if (res.code === 500) {
-          this.$alert(res.msg)
-        }
-      })
+    submit(res) {
+      if (res) {
+        login({
+          username: this.username,
+          password: this.password,
+          code: this.code,
+          sid: this.$store.state.sid
+        }).then((res) => {
+          if (res.code === 200) {
+            console.log('登录成功');
+            this.username = "";
+            this.password = "";
+            this.code = ""
+            requestAnimationFrame(() => {
+              this.$refs.observer.reset();
+            })
+          } else if (res.code === 401) {
+            this.$refs.codefield.setErrors([res.msg])
+          } else if (res.code === 500) {
+            this.$alert(res.msg)
+          }
+        })
+      }
     }
   }
 }

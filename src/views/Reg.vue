@@ -119,7 +119,11 @@
                     </validation-provider>
                   </div>
                   <div class="layui-form-item">
-                    <button class="layui-btn" type="button" @click="validate().then(submit)">立即注册</button>
+                    <button
+                      class="layui-btn"
+                      type="button"
+                      @click="validate().then((res)=>{submit(res)})"
+                    >立即注册</button>
                   </div>
                   <div class="layui-form-item fly-form-app">
                     <span>或者直接使用社交账号快捷注册</span>
@@ -181,31 +185,30 @@ export default {
         }
       })
     },
-    submit() {
-      reg({
-        username: this.username,
-        password: this.password,
-        name: this.name,
-        code: this.code,
-        sid: this.$store.state.sid
-      }).then((res) => {
-        if (res.code === 200) {
-          console.log('登录成功');
-          this.username = "";
-          this.password = "";
-          this.code = ""
-          requestAnimationFrame(() => {
-            this.$refs.observer.reset();
-          })
-        } else {
-          this.$refs.observer.setErrors(res.msg)
-        }
-        // } else if (res.code === 401) {
-        //   this.$refs.codefield.setErrors([res.msg])
-        // } else if (res.code === 500) {
-        //   this.$alert(res.msg)
-        // }
-      })
+    submit(res) {
+      if (res) {
+        reg({
+          username: this.username,
+          password: this.password,
+          name: this.name,
+          code: this.code,
+          sid: this.$store.state.sid
+        }).then((res) => {
+          if (res.code === 200) {
+            this.$alert(res.msg);
+            setTimeout(() => {
+              this.$routerrouter.push('/login')
+            }, 1000)
+          } else {
+            this.$refs.observer.setErrors(res.msg)
+          }
+          // } else if (res.code === 401) {
+          //   this.$refs.codefield.setErrors([res.msg])
+          // } else if (res.code === 500) {
+          //   this.$alert(res.msg)
+          // }
+        })
+      }
     }
   }
 
