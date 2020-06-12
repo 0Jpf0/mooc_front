@@ -25,5 +25,11 @@ const forget = option => {
 const login = loginInfo => {
   return axios.post("/login/login", { ...loginInfo });
 };
-
-export { getCode, forget, login };
+/**
+ * 用户注册
+ * @param {*} loginInfo 用户名。密码等参数
+ */
+const reg = regInfo => {
+  return axios.post("/login/reg", { ...regInfo });
+};
+export { getCode, forget, login, reg };

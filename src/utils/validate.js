@@ -1,5 +1,12 @@
 import { localize, extend } from "vee-validate";
-import { required, email, min, max, length } from "vee-validate/dist/rules";
+import {
+  required,
+  email,
+  min,
+  max,
+  length,
+  confirmed
+} from "vee-validate/dist/rules";
 import zh from "vee-validate/dist/locale/zh_CN.json";
 const dictionary = {
   names: {
@@ -30,6 +37,7 @@ extend("email", email);
 extend("min", min);
 extend("max", max);
 extend("length", length);
+extend("confirmed", confirmed);
 extend("confirmPassword", {
   params: ["target"],
   validate(value, { target }) {
