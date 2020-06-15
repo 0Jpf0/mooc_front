@@ -197,16 +197,11 @@ export default {
           if (res.code === 200) {
             this.$alert(res.msg);
             setTimeout(() => {
-              this.$routerrouter.push('/login')
+              this.$router.replace('/login')
             }, 1000)
           } else {
             this.$refs.observer.setErrors(res.msg)
           }
-          // } else if (res.code === 401) {
-          //   this.$refs.codefield.setErrors([res.msg])
-          // } else if (res.code === 500) {
-          //   this.$alert(res.msg)
-          // }
         })
       }
     }
